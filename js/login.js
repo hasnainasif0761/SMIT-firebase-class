@@ -17,6 +17,9 @@ const loginBtn = document.getElementById('loginBtn');
 // Addeventlistner Event for login btn
 loginBtn.addEventListener('click',loginFun);
 
+// Animtion Variable
+let animate = document.getElementById('main_div');
+
 // Login Function 
 function loginFun(e){
     e.preventDefault();
@@ -35,5 +38,8 @@ function loginFun(e){
         const codeError = error.code;
         const errorMessage = error.message;
         console.log('Error Message=>',errorMessage);
+        animate.classList.remove("animate__animated","animate__shakeX");
+        void animate.offsetWidth;
+        animate.classList.add("animate__animated","animate__shakeX");
     })
 }
