@@ -1,22 +1,13 @@
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-  import { getAuth,
-     createUserWithEmailAndPassword,
-     signInWithPopup,
-     GoogleAuthProvider
-     } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import {
+  initializeApp,
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  firebaseConfig
+} from './firebase.js'
 
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCMWO93aaT0HaD21uqQ-RM4hRDc3VA6mmc",
-    authDomain: "smit-e-commerce-application.firebaseapp.com",
-    projectId: "smit-e-commerce-application",
-    storageBucket: "smit-e-commerce-application.firebasestorage.app",
-    messagingSenderId: "691707383552",
-    appId: "1:691707383552:web:6955b49077269ed030ede5",
-    measurementId: "G-DC20LGY005"
-  };
-
-  // Initialize Firebase
+// Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
@@ -37,8 +28,6 @@
 function signFunc(){
   let semail = document.getElementById("semail").value;
   let spassword = document.getElementById("spassword").value;
-
-
   createUserWithEmailAndPassword(auth,semail,spassword)
   .then((userCredential)=>{
     const user = userCredential.user;
