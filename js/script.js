@@ -25,7 +25,8 @@ import {
 
 
 // SignUp Form Function
-function signFunc(){
+function signFunc(event){
+  event.preventDefault();
   let semail = document.getElementById("semail").value;
   let spassword = document.getElementById("spassword").value;
   createUserWithEmailAndPassword(auth,semail,spassword)
@@ -33,11 +34,15 @@ function signFunc(){
     const user = userCredential.user;
     console.log(user);
     alert("User Created Successfully");
+    document.getElementById('semail').value = ''
+    document.getElementById('spassword').value = ''
   })
   .catch((error)=>{
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode,errorMessage);
+    document.getElementById('semail').value = ''
+    document.getElementById('spassword').value = ''
   })
 }
 
