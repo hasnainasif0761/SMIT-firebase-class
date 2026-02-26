@@ -55,7 +55,14 @@ function googleFunc(){
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     const user = result.user;
-    console.log('user=>',user);
+    const isNewUser = result._tokenResponse.isNewUser;
+    if(isNewUser){
+      console.log('user=>',user.email);
+      alert('New User Registration Successfully');
+    }else{
+      console.log('user is Already register');
+      alert('User is Already register 💥')
+    }
   }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
@@ -65,3 +72,19 @@ function googleFunc(){
     console.log('Message Error=>',errorMessage)
   });
 }
+
+// Hide and Show password toggle
+let showpass =  document.getElementById('showpass');
+
+showpass.addEventListener('click',()=>{
+    let lpass = document.getElementById('spassword');
+    if(lpass.type == 'password'){
+        lpass.type = 'text';
+        showpass.classList.remove('fa-eye');
+        showpass.classList.add('fa-eye-slash')
+    }else{
+        lpass.type = 'password';
+        showpass.classList.remove('fa-eye-slash')
+        showpass.classList.add('fa-eye');
+    }
+})

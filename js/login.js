@@ -29,8 +29,13 @@ function loginFun(e){
     signInWithEmailAndPassword(auth,lemail,lpassword)
     .then((userCredential)=>{
         const user = userCredential.user;
-        console.log('Your user is=>',user);
-        alert('User Login Successfully');
+    // Store Data in Sessions
+      sessionStorage.setItem('users', JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photo: user.photoURL
+      }));        
         window.location.href = 'dashboard.html';
         document.getElementById('lemail').value = '';
         document.getElementById('lpassword').value = '';
@@ -43,3 +48,52 @@ function loginFun(e){
         animate.classList.add("animate__animated","animate__shakeX");
     })
 }
+
+let googleBtn = document.getElementById('googleBtn');
+
+googleBtn.addEventListener('click',googleFunc)
+
+function googleFunc(){
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth,provider)
+  .then((result)=>{
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    // Store Data in Sessions
+    sessionStorage.setItem('users', JSON.stringify({
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+      photo: user.photoURL
+    }));
+    window.location.href = './dashboard.html'
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    const email = error.customData.email;
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    console.log('code Error=>',errorCode)
+    console.log('Message Error=>',errorMessage)
+  });
+}
+
+
+
+// Hide and Show password toggle
+let showpass =  document.getElementById('showpass');
+
+showpass.addEventListener('click',()=>{
+    let lpass = document.getElementById('lpassword');
+    if(lpass.type == 'password'){
+        lpass.type = 'text';
+        console.log(lpass)
+        showpass.classList.remove('fa-eye');
+        showpass.classList.add('fa-eye-slash')
+    }else{
+        lpass.type = 'password';
+        console.log(lpass)
+        showpass.classList.remove('fa-eye-slash')
+        showpass.classList.add('fa-eye');
+    }
+})
