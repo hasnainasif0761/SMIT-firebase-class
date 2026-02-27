@@ -87,12 +87,10 @@ showpass.addEventListener('click',()=>{
     let lpass = document.getElementById('lpassword');
     if(lpass.type == 'password'){
         lpass.type = 'text';
-        console.log(lpass)
         showpass.classList.remove('fa-eye');
         showpass.classList.add('fa-eye-slash')
     }else{
         lpass.type = 'password';
-        console.log(lpass)
         showpass.classList.remove('fa-eye-slash')
         showpass.classList.add('fa-eye');
     }
